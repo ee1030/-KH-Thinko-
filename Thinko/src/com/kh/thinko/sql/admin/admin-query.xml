@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<!-- 총 방문자 수 조회 -->
+<entry key="getVisitorCount">
+SELECT COUNT(*) FROM TK_MEMBER
+WHERE TO_CHAR(LAST_LOGIN_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+</entry>
+
+<!-- 총 게시글 수 조회 -->
+<entry key="getBoardCount">
+SELECT COUNT(*) FROM TK_BOARD
+WHERE BOARD_STATUS = 'Y'
+</entry>
+
+<!-- 최근 게시글 조회 -->
+<entry key="selectBoardList">
+SELECT * 
+FROM
+(SELECT BOARD_NO, BOARD_TITLE, MEMBER_ID, REPLY_COUNT, LIKE_COUNT, READ_COUNT, BOARD_CREATE_DT
+FROM V_BOARD
+WHERE BOARD_STATUS = 'Y'
+ORDER BY BOARD_NO DESC)
+WHERE ROWNUM BETWEEN 1 AND 10
+</entry>
+
+<!-- 최근 댓글 조회 -->
+<entry key="selectReplyList">
+SELECT *
+FROM
+(SELECT REPLY_NO, REPLY_CONTENT, MEMBER_ID, REPLY_CREATE_DT
+FROM V_REPLY
+WHERE REPLY_STATUS = 'Y'
+ORDER BY REPLY_NO DESC)
+WHERE ROWNUM BETWEEN 1 AND 10
+</entry>
+
+<!-- 최근 신고된 게시글 목록 조회 -->
+<entry key="selectReportBoard">
+SELECT BOARD_NO, BOARD_TITLE, MEMBER_ID, BOARD_CREATE_DT, READ_COUNT, REPORT_COUNT
+FROM
+(SELECT * FROM V_R_BOARD
+WHERE BOARD_STATUS = 'Y'
+AND REPORT_COUNT > 0
+ORDER BY BOARD_NO DESC)
+WHERE ROWNUM BETWEEN 1 AND 10
+</entry>
+
+<!-- 최근 신고된 댓글 목록 조회 -->
+<entry key="selectReportReply">
+SELECT *
+FROM
+(SELECT * FROM V_R_REPLY
+WHERE REPLY_STATUS = 'Y'
+AND REPORT_COUNT > 0
+ORDER BY REPLY_NO DESC)
+WHERE ROWNUM BETWEEN 1 AND 10
+</entry>
+
+<!-- 회원 목록 조회 -->
+<entry key="selectMemberList">
+SELECT * FROM
+    (SELECT ROWNUM RNUM, V.*
+    FROM
+        (SELECT * FROM TK_MEMBER ORDER BY MEMBER_NO DESC) V)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<!-- 회원상태 N으로 업데이트 -->
+<entry key="updateMemberStatusN">
+UPDATE TK_MEMBER SET
+MEMBER_STATUS = 'N'
+WHERE MEMBER_NO = ?
+</entry>
+
+<!-- 회원상태 Y로 업데이트 -->
+<entry key="updateMemberStatusY">
+UPDATE TK_MEMBER SET
+MEMBER_STATUS = 'Y'
+WHERE MEMBER_NO = ?
+</entry>
+
+<!-- 전체 게시글 수 조회 -->
+<entry key="getListCount">
+SELECT COUNT(*) FROM V_BOARD
+</entry>
+
+<!-- 전체 멤버 수 조회 -->
+<entry key="getMemberListCount">
+SELECT COUNT(*) FROM TK_MEMBER
+</entry>
+
+<!-- 전체 댓글 수 조회 -->
+<entry key="getReplyListCount">
+SELECT COUNT(*) FROM V_REPLY
+</entry>
+
+<!-- 지정된 페이지 게시글 목록 조회 -->
+<entry key="selectAllBoardList">
+SELECT * FROM
+    (SELECT ROWNUM RNUM, V.*
+    FROM
+        (SELECT * FROM V_BOARD ORDER BY BOARD_NO DESC) V)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<!-- 지정된 페이지 댓글 목록 조회 -->
+<entry key="selectAllReplyList">
+SELECT * FROM
+    (SELECT ROWNUM RNUM, V.*
+    FROM
+        (SELECT * FROM V_REPLY ORDER BY REPLY_NO DESC) V)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<!-- 모든 신고된 게시글 수 조회 -->
+<entry key="getReportBoardListCount">
+SELECT COUNT(*) FROM V_R_BOARD WHERE REPORT_COUNT > 0
+</entry>
+
+<!-- 모든 신고된 게시글 목록 조회 -->
+<entry key="selectAllReportBoard">
+SELECT * FROM
+    (SELECT ROWNUM RNUM, V.*
+    FROM
+        (SELECT * FROM V_R_BOARD WHERE REPORT_COUNT > 0 ORDER BY BOARD_NO DESC) V)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<!-- 모든 신고된 댓글 수 조회 -->
+<entry key="getReportReplyListCount">
+SELECT COUNT(*) FROM V_R_REPLY WHERE REPORT_COUNT > 0
+</entry>
+
+<!-- 모든 신고된 게시글 목록 조회 -->
+<entry key="selectReportedReplyList">
+SELECT * FROM
+    (SELECT ROWNUM RNUM, V.*
+    FROM
+        (SELECT * FROM V_R_REPLY WHERE REPORT_COUNT > 0 ORDER BY REPLY_NO DESC) V)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<!-- DB파일 조회 -->
+<entry key="getDbFileName">
+SELECT ATTACHMENT_NM FROM TK_BOARD_ATTACHMENT
+</entry>
+
+<!-- 공지사항 파일 조회 -->
+<entry key="getNoticeFileList">
+SELECT NOTICE_FILE_NAME FROM TK_NOTICE_ATTACHMENT
+</entry>
+
+</properties>

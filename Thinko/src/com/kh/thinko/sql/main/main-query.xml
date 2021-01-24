@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<entry key="publicBoardList">
+SELECT * 
+FROM
+(SELECT BOARD_NO, BOARD_TITLE, MEMBER_ID, REPLY_COUNT, LIKE_COUNT, READ_COUNT, BOARD_CREATE_DT
+FROM V_BOARD
+WHERE BOARD_STATUS = 'Y'
+ORDER BY READ_COUNT DESC)
+WHERE ROWNUM BETWEEN 1 AND 5
+</entry>
+
+<!-- 인기글을 제외한 5개  게시판 -->
+<entry key="otherBoardList">
+SELECT * 
+FROM
+(SELECT BOARD_NO, BOARD_TITLE, MEMBER_ID, REPLY_COUNT, LIKE_COUNT, READ_COUNT, BOARD_CREATE_DT
+FROM V_BOARD
+WHERE BOARD_STATUS = 'Y'
+AND BOARD_TYPE_NO = ?
+ORDER BY BOARD_NO DESC)
+WHERE ROWNUM BETWEEN 1 AND 5
+</entry>
+
+
+</properties>

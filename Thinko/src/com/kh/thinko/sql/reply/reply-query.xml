@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<!-- 댓글 조회 -->
+<entry key="selectList">
+SELECT REPLY_NO, REPLY_CONTENT, REPLY_CREATE_DT, MEMBER_ID, MEMBER_NO
+FROM V_REPLY
+WHERE REPLY_STATUS = 'Y'
+AND PARENT_BOARD_NO = ?
+</entry>
+
+<!-- 댓글 삽입 -->
+<entry key="insertReply">
+INSERT INTO TK_REPLY
+VALUES(SEQ_RNO.NEXTVAL, ?, DEFAULT, DEFAULT, ?, ?)
+</entry>
+
+<!--댓글 수정 -->
+<entry key="updateReply">
+UPDATE TK_REPLY SET
+REPLY_CONTENT = ?
+WHERE REPLY_NO = ?
+</entry>
+
+<!-- 댓글 삭제 -->
+<entry key="updateReplyStatus">
+UPDATE TK_REPLY SET
+REPLY_STATUS = 'N'
+WHERE REPLY_NO = ?
+</entry>
+
+<!-- 댓글 신고 중복 검사 -->
+<entry key="findReport">
+SELECT COUNT(*) FROM TK_REPLY_REPORT
+WHERE MEMBER_NO = ?
+AND REPLY_NO = ?
+</entry>
+
+<!-- 댓글 신고  -->
+<entry key="reportReply">
+INSERT INTO TK_REPLY_REPORT
+VALUES(SEQ_RRNO.NEXTVAL, DEFAULT, DEFAULT, ?, ?, ?)
+</entry>
+
+<entry key="findType">
+<!-- 익명게시판인지 type확인 -->
+SELECT BOARD_TYPE_NO FROM TK_BOARD
+WHERE BOARD_NO = ?
+</entry>
+
+
+</properties>

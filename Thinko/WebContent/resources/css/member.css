@@ -1,0 +1,258 @@
+
+
+/* 공통 style */
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+    color: rgb(37, 37, 37);
+}
+
+#container{
+margin-left: 50px;
+}
+
+#btn {
+    margin: auto;
+    background-color: #866ec7;
+    border-radius: 10px;
+}
+
+.inputDiv {
+    width: 90%;
+    height: 40px;
+    border-radius: 20px;
+    outline: none;
+    border: 1px solid #814798;
+}
+
+.emailDiv {
+    width: 70%;
+    height: 40px;
+    border-radius: 20px;
+    outline: none;
+    border: 1px solid #814798;
+    display: inline-block;
+}
+
+
+.inputBox {
+    width: 70%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    padding-left: 10px;
+} 
+
+input:focus {
+    outline: none;
+}
+
+.infoList{
+    line-height: 40px;
+}
+
+.check-circle {
+    float: right;
+    margin-right: 20px;
+    margin-top: 7px;
+}
+
+/* join style */
+#join-logo{
+	width: 70%;
+  display : block ;
+  margin : 0 auto ;
+}
+
+.check-circle-blue{
+    color: rgb(0, 199, 0);
+}
+
+.check-circle-red{
+    color: red;
+}
+
+
+#join-wrapper {
+    width: 500px;
+    height: 1150px;
+    margin: 100px auto auto auto;
+}
+
+#sign-up-table {
+    width: 100%;
+    height: 100%;
+    margin-left: 10px;
+}
+
+#sign-up-table tr>td:nth-of-type(1){
+    padding-left: 0;
+}
+
+#sign-up-table tr>td:nth-of-type(1)>span{
+    font-size: 16px;
+}
+
+
+#sign-up-table tr>td:nth-of-type(2) {
+    text-align: right;
+}
+
+input[type='radio'] {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #814798;
+    border-radius: 50%;
+    outline: none;
+}
+
+
+button:focus{ 	
+    outline:none !important;
+    }
+    
+input[type=checkbox]{
+    width: 20px;
+}
+
+
+
+#join-cancle-button {
+    margin-left: 120px;
+}
+
+.reg-result {
+    width: 300px;
+    font-size: 13px;
+}
+
+input::placeholder {
+    font-size: 12px;
+}
+
+.input-td{
+    padding-bottom: 40px;
+}
+
+
+.button1{
+		    width: 100px;
+		    height: 40px;
+		    border-radius: 5px;
+		    border: none;
+		    padding: 4px;
+		    margin-left: 10px;
+		    font-size: 18px;
+		    background-color:#814798;
+		    color: white;
+}
+
+.button2{
+		  background-color: white;
+			color: #814798;
+			font-weight: bold;
+			border-radius: 20px;
+		  border: none;
+			font-size: 13px;
+		  margin-left: 10px;
+		  padding-top: 7px;
+		  padding-bottom: 7px;
+			border: 2px solid #814798;
+}
+
+/* myPage style */
+
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button
+{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#myPage-caution, #changePwd-caution{
+    width: 330px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    font-size: 13px;
+    margin: 0px auto 0px auto;
+}
+
+/* changePwd style */
+
+#changePwd-caution{
+    width: 450px;
+}
+    
+/* secession style */   
+#text-area{
+	min-height: 200px;
+}
+
+#text-form{
+	width: 600px;
+	margin: auto;	
+}
+
+/* myBoardList style */
+
+
+#my-board, #my-comment {
+	min-width: 730px;
+}
+
+.list-wrapper {
+	height: 320px;
+	box-sizing: border-box;
+}
+
+#my-board td:hover, #my-comment td:hover {
+	cursor: pointer;
+}
+
+#my-board tr>th:nth-of-type(3), #my-comment tr>th:nth-of-type(2) {
+	width: 340px;
+}
+
+#my-board tr>td:nth-of-type(4), #my-comment tr>td:nth-of-type(3),
+	#my-comment tr>td:nth-of-type(4) {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	max-width: 340px;
+	padding-right: 30px;
+}
+
+#my-comment tr>td:nth-of-type(4) {
+	width: 240px;
+	max-width: 240px;
+}
+
+#my-board tr>td:nth-of-type(2), #my-comment tr>td:nth-of-type(2) {
+	display: none;
+}
+
+#my-board th, #my-comment th {
+	background-color: #81479830;
+}
+
+#my-board td, #my-board th, #my-comment td, #my-comment th {
+	padding-right: 0px;
+}
+
+#delete-button {
+	border: 1px solid #cccccc;
+	background-color: white;
+	border-radius: 5px;
+	margin-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.pagination {
+	justify-content: center;
+}
+
+.page-link{
+	color: #866ec7 !important;
+	font-weight: bold;
+}
+

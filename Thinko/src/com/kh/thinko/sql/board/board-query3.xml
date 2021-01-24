@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<!-- 다음 게시글 번호 조회 -->
+<entry key="selectNextNo">
+SELECT SEQ_BNO.NEXTVAL FROM DUAL
+</entry>
+
+<!-- 게시글 삽입 -->
+<entry key="insertBoard">
+INSERT INTO TK_BOARD
+VALUES(?, ?, ?, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, ?, ?, ?)
+</entry>
+
+<!-- 파일 정보 삽입 -->
+<entry key="insertAttachment">
+INSERT INTO TK_BOARD_ATTACHMENT
+VALUES(SEQ_FNO.NEXTVAL, ?, ?, ?, ?)
+</entry>
+
+<!-- 게시글 수정 -->
+<entry key="updateBoard">
+UPDATE TK_BOARD SET
+BOARD_TITLE = ?,
+BOARD_CONTENT = ?,
+BOARD_CATEGORY_NO = ?,
+BOARD_MODIFY_DT = SYSDATE
+WHERE BOARD_NO = ?
+</entry>
+
+<!-- 파일 정보 수정 -->
+<entry key="updateAttachment">
+UPDATE TK_BOARD_ATTACHMENT SET 
+ATTACHMENT_NO = SEQ_FNO.NEXTVAL,
+ATTACHMENT_PATH = ?,
+ATTACHMENT_NM = ?,
+ATTACHMENT_LEVEL =?
+WHERE BOARD_NO = ?
+</entry>
+
+<!-- 파일 정보 삭제 -->
+<entry key="deleteAttachment">
+DELETE TK_BOARD_ATTACHMENT
+WHERE BOARD_NO = ?
+</entry>
+
+
+<!-- 게시글에 포함된 이미지 목록 조회 -->
+<entry key="selectBoardFiles">
+SELECT ATTACHMENT_NO, ATTACHMENT_PATH, ATTACHMENT_NM, ATTACHMENT_LEVEL, BOARD_NO
+FROM TK_BOARD_ATTACHMENT
+WHERE BOARD_NO = ?
+ORDER BY ATTACHMENT_LEVEL
+</entry>
+
+<entry key="updateBoardStatus">
+UPDATE TK_BOARD SET
+BOARD_STATUS = 'N'
+WHERE BOARD_NO = ?
+</entry>
+
+<!-- 위치좌표 삽입 -->
+<entry key="insertLocation">
+INSERT INTO TK_LOCATION
+VALUES(SEQ_LONO.NEXTVAL, ?, ?, ?)
+</entry>
+
+
+</properties>

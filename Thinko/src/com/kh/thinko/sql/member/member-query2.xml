@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+
+<entry key="loginMember">
+SELECT MEMBER_NO, MEMBER_ID, MEMBER_NM, MEMBER_PHONE,
+    MEMBER_EMAIL, MEMBERSHIP_TYPE, MEMBER_STATUS,
+    MEMBER_GRADE, LAST_LOGIN_DATE, MEMBER_ENROLL_DATE, MEMBER_INTEREST 
+FROM TK_MEMBER
+WHERE MEMBER_ID = ?
+AND MEMBER_PWD = ?
+AND MEMBER_STATUS = 'Y'
+</entry>
+
+<entry key="searchId">
+SELECT MEMBER_ID
+FROM TK_MEMBER
+WHERE MEMBER_NM = ?
+AND MEMBER_EMAIL = ?
+AND MEMBER_STATUS = 'Y'
+</entry>
+
+<entry key="searchPw">
+SELECT COUNT(*)
+FROM TK_MEMBER
+WHERE MEMBER_ID = ?
+AND MEMBER_EMAIL = ?
+AND MEMBER_STATUS = 'Y'
+</entry>
+
+<entry key="selectEncryptEmail">
+SELECT MEMBER_NO FROM ENCRYPT_EMAIL
+WHERE CODE = ?
+</entry>
+
+
+<entry key="updatePw">
+UPDATE TK_MEMBER SET
+MEMBER_PWD = ?
+WHERE MEMBER_NO = ?
+</entry>
+
+
+
+<entry key="insertEncryptEmail">
+INSERT INTO ENCRYPT_EMAIL 
+(SELECT 
+	(SELECT MEMBER_NO FROM TK_MEMBER WHERE MEMBER_ID = ?
+		AND MEMBER_STATUS = 'Y') AS MEMBER_NO , ? AS CODE 
+FROM DUAL)
+</entry>
+
+<!-- 마지막 로그인 날짜 업데이트 -->
+<entry key="updateLastLogin">
+UPDATE TK_MEMBER SET
+LAST_LOGIN_DATE = SYSDATE
+WHERE MEMBER_ID = ?
+AND MEMBER_PWD = ?
+AND MEMBER_STATUS = 'Y'
+</entry>
+
+
+
+<entry key="deleteEncryptEmail">
+DELETE FROM ENCRYPT_EMAIL
+WHERE CODE = ?
+</entry>
+
+</properties>

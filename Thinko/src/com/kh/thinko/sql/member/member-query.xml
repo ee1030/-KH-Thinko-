@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="loginMember">
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NM, MEMBER_PHONE,
+		MEMBER_EMAIL, MEMBER_INTEREST,
+		MEMBERSHIP_TYPE
+		FROM TK_MEMBER
+		WHERE MEMBER_ID = ?
+		AND MEMBER_PWD = ?
+		AND MEMBER_STATUS = 'Y'
+	</entry>
+
+
+	<entry key="joinMember">
+		INSERT INTO TK_MEMBER
+		VALUES(SEQ_MNO.NEXTVAL, ?, ?, ?, ?, ?, ? , DEFAULT, DEFAULT, DEFAULT, DEFAULT, ?)
+	</entry>
+
+	<entry key="idDupCheck">
+		SELECT COUNT(*) FROM TK_MEMBER
+		WHERE MEMBER_ID=? AND MEMBER_STATUS='Y'
+	</entry>
+
+	<entry key="updateMember">
+		UPDATE TK_MEMBER SET
+		MEMBER_EMAIL = ?,
+		MEMBER_PHONE = ?,
+		MEMBER_INTEREST = ?
+		WHERE MEMBER_NO = ?
+	</entry>
+
+	<entry key="checkCurrentPwd">
+		SELECT COUNT(*) FROM TK_MEMBER
+		WHERE MEMBER_NO = ?
+		AND MEMBER_PWD = ?
+	</entry>
+
+	<entry key="updatePwd">
+		UPDATE TK_MEMBER SET
+		MEMBER_PWD = ?
+		WHERE MEMBER_NO = ?
+	</entry>
+
+	<entry key="updateStatus">
+		UPDATE TK_MEMBER SET
+		MEMBER_STATUS ='N'
+		WHERE MEMBER_NO = ?
+	</entry>
+
+	<!-- 전체 게시글 수 조회 -->
+<entry key="getBoardListCount">
+	SELECT COUNT(*) FROM TK_BOARD
+	WHERE BOARD_STATUS = 'Y'
+	AND MEMBER_NO = ?
+</entry>
+
+<!-- 지정된 페이지 게시글 목록 조회 -->
+<entry key="selectBoardList">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, V.*
+	FROM(SELECT BOARD_NO, BOARD_TYPE_NM, BOARD_TITLE, READ_COUNT, BOARD_CREATE_DT
+	FROM TK_BOARD A
+	JOIN TK_BOARD_TYPE B ON(A.BOARD_TYPE_NO = B.BOARD_TYPE_NO)
+	WHERE MEMBER_NO = ? AND BOARD_STATUS = 'Y' ORDER BY BOARD_NO DESC)V)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<!-- 게시글 삭제 -->
+<entry key="updateBoardStatus">
+	UPDATE TK_BOARD SET
+	BOARD_STATUS = 'N'
+	WHERE BOARD_NO = ?
+</entry>
+
+<!-- 전체 댓글 수 조회 -->
+<entry key="getReplyListCount">
+	SELECT COUNT(*) FROM TK_REPLY
+	WHERE REPLY_STATUS = 'Y'
+	AND REPLY_WRITER = ?
+</entry>
+
+<!-- 지정된 페이지 댓글 목록 조회 -->
+<entry key="selectReplyList">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, V.*
+	FROM(SELECT REPLY_NO, REPLY_CONTENT, BOARD_TITLE, REPLY_CREATE_DT,
+	PARENT_BOARD_NO
+	FROM TK_REPLY
+	JOIN TK_BOARD ON(BOARD_NO = PARENT_BOARD_NO)
+	WHERE REPLY_STATUS = 'Y' AND REPLY_WRITER = ? ORDER BY REPLY_NO DESC)V)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<!-- 댓글 삭제 -->
+<entry key="updateReplyStatus">
+	UPDATE TK_REPLY SET
+	REPLY_STATUS = 'N'
+	WHERE REPLY_NO = ?
+</entry>
+
+<!-- 좋아요 누른 게시글 수 조회 -->
+<entry key="getFavoriteListCount">
+	SELECT COUNT(*)
+	FROM TK_LIKE
+	WHERE MEMBER_NO = ? AND LIKE_FL = 'Y'
+</entry>
+
+<!-- 좋아요 누른 게시글 조회 -->
+<entry key="selectFavoriteList">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, V.*
+	FROM(SELECT BOARD_NO, BOARD_TITLE, BOARD_CREATE_DT, BOARD_TYPE_NO, BOARD_TYPE_NM,
+	READ_COUNT, LIKE_COUNT, REPLY_COUNT
+	FROM(SELECT * FROM V_BOARD
+	WHERE BOARD_NO IN(SELECT BOARD_NO FROM TK_LIKE
+	WHERE MEMBER_NO = ? AND LIKE_FL = 'Y'))
+	WHERE BOARD_STATUS = 'Y'
+	ORDER BY BOARD_NO DESC)V)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+	<!-- 좋아요 취소 -->
+	<entry key="updateLikeFl">
+	UPDATE TK_LIKE SET
+	LIKE_FL = 'N'
+	WHERE MEMBER_NO = ? AND BOARD_NO = ?
+	</entry>
+	
+	
+
+</properties>

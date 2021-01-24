@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+
+<!-- 게시글 상세 조회 -->
+<entry key="selectBoard">
+SELECT * FROM V_BOARD
+WHERE BOARD_NO = ?
+AND BOARD_STATUS = 'Y'
+</entry>
+
+<!-- 조회수 증가 -->
+<entry key="increaseReadCount">
+UPDATE TK_BOARD SET
+READ_COUNT = READ_COUNT + 1
+WHERE BOARD_NO = ?
+</entry>
+
+<!-- 게시글 신고 기능 -->
+<entry key="reportBoard">
+INSERT INTO TK_BOARD_REPORT
+VALUES(SEQ_BRNO.NEXTVAL, DEFAULT, DEFAULT, ?, ?, ?)
+</entry>
+
+<!-- 중복 신고 검사 -->
+<entry key="findReport">
+SELECT COUNT(*) FROM TK_BOARD_REPORT
+WHERE BOARD_WRITER = ?
+AND BOARD_NO = ?
+</entry>
+
+<!-- 좋아요 중복 검사 -->
+<entry key="checkLike">
+SELECT COUNT(*) FROM TK_LIKE
+WHERE BOARD_NO = ?
+AND MEMBER_NO = ?
+</entry>
+
+<!-- 좋아요 상태 조회 -->
+<entry key="getLikeFl">
+SELECT LIKE_FL FROM TK_LIKE
+WHERE BOARD_NO = ?
+AND MEMBER_NO = ?
+</entry>
+
+<!-- 좋아요 상태 N으로 변경 -->
+<entry key="updateLikeToN">
+UPDATE TK_LIKE SET
+LIKE_FL = 'N'
+WHERE BOARD_NO = ?
+AND MEMBER_NO = ?
+</entry>
+
+<!-- 좋아요 상태 Y로 변경 -->
+<entry key="updateLikeToY">
+UPDATE TK_LIKE SET
+LIKE_FL = 'Y'
+WHERE BOARD_NO = ?
+AND MEMBER_NO = ?
+</entry>
+
+<!-- 좋아요 삽입 -->
+<entry key="insertLike">
+INSERT INTO TK_LIKE
+VALUES(SEQ_LNO.NEXTVAL, ?, ?, DEFAULT)
+</entry>
+
+<!-- 위치 정보 조회 -->
+<entry key="selectLocation">
+SELECT LAT, LNG FROM TK_LOCATION
+WHERE BOARD_NO = ?
+</entry>
+
+</properties>
